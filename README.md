@@ -67,7 +67,7 @@ Sugestão de editores de texto (IDE): [VSCODE](https://code.visualstudio.com/), 
 
 ## Para executar em desenvolvimento
 - Rodar o comando `yarn install`
-- Rodar o comando `ng serve --open` e navetar até `http://localhost:4200/`
+- Rodar o comando `ng serve --open` e navegar até `http://localhost:4200/`
 
 
 # Avaliação Cristiano Gomes - Backend - Neppo
@@ -76,6 +76,7 @@ Este projeto foi gerado utilizando [.Net Core 2.0](https://www.microsoft.com/net
 
 ## Requisitos
 - Ferramentas necessárias: dotnet core 2 na linha de comando
+- Banco de dados postgre
 
 ## Banco de dados
 - O contexto utilizado foi configurado para utilizar banco postgre
