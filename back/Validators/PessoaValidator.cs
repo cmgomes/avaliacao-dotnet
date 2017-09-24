@@ -13,7 +13,7 @@ namespace Neppo.Validators
 
             RuleFor(p => p.documento)
                 .NotEmpty().WithMessage("O campo [documento] não pode ser vazio.")
-                .MaximumLength(50).WithMessage("O campo [documento] só pode conter até 50 carácteres.");
+                .MaximumLength(20).WithMessage("O campo [documento] só pode conter até 50 carácteres.");
 
             RuleFor(p => p.dataNascimento)
                 .NotEmpty().WithMessage("O campo [dataNascimento] não pode ser vazio e deve possuir a formato <yyyy-mm-dd>.");

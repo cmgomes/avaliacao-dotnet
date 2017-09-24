@@ -102,14 +102,15 @@ namespace Neppo.Controllers
         public object Post([FromBody]Dictionary<string, string> dados)
         {
             var validator = new PessoaValidator();
+            var pessoa = new Pessoa() {
+                nome = dados.ContainsKey("nome") ? dados["nome"] : null,
+                sexo = dados.ContainsKey("sexo") ? dados["sexo"] : null,
+                endereco = dados.ContainsKey("endereco") ? dados["endereco"] : null,
+                documento = dados.ContainsKey("documento") ? dados["documento"] : null
+            };
 
             try {
-                var pessoa = new Pessoa() {
-                    nome = dados.ContainsKey("nome") ? dados["nome"] : null,
-                    sexo = dados.ContainsKey("sexo") ? dados["sexo"] : null,
-                    endereco = dados.ContainsKey("endereco") ? dados["endereco"] : null,
-                    documento = dados.ContainsKey("documento") ? dados["documento"] : null
-                };
+                
 
                 DateTime date;
                 if(DateTime.TryParse(dados["dataNascimento"], out date)) {
@@ -123,12 +124,13 @@ namespace Neppo.Controllers
                 }
 
                 _repositorio.Add(pessoa);
-                return pessoa;
+                
             } catch( Exception e) {
                 Console.WriteLine("Erro em ApiController::107-126: " + e.Message);
+                return StatusCode(500, "Falha no processamento da informação");
             }
 
-            return StatusCode(500, "Falha no processamento da informação");
+            return pessoa;
         }
 
         // PUT api/pessoa/<id>

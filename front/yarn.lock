@@ -293,9 +293,19 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-confirmation-popover@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/angular-confirmation-popover/-/angular-confirmation-popover-3.2.0.tgz#62e1020e61b073ad829038d4163969d59106c218"
+  dependencies:
+    positioning "^1.3.1"
+
 angular-popper@^1.0.0-beta-1:
   version "1.0.0-beta-1"
   resolved "https://registry.yarnpkg.com/angular-popper/-/angular-popper-1.0.0-beta-1.tgz#399a14afe23df125067c67d29961066c445208e1"
+
+angular2-toaster@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/angular2-toaster/-/angular2-toaster-4.0.1.tgz#587aef6df903cf5e2b7eba4047b54ec9a21b8e3b"
 
 ansi-html@0.0.7:
   version "0.0.7"
@@ -1979,6 +1989,10 @@ find-up@^2.0.0:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
+
+font-awesome@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
 
 for-in@^0.1.3:
   version "0.1.8"
@@ -3863,6 +3877,10 @@ portfinder@^1.0.9, portfinder@~1.0.12:
     async "^1.5.2"
     debug "^2.2.0"
     mkdirp "0.5.x"
+
+positioning@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/positioning/-/positioning-1.3.1.tgz#6ff15e9bf8d8fe341ba1b3900d587e977b5554ec"
 
 postcss-calc@^5.2.0:
   version "5.3.1"
