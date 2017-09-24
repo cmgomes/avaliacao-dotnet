@@ -93,7 +93,7 @@ Todos os endpoints retornam quantidade máxima de 1000 itens por página, mesmo 
 - Efetuar busca paginada por todos os registros: `GET:/api/pessoa/<pagina>/<itens_por_pagina>`
 - Efetuar busca `GET:/api/pessoa/buscar/<campo>/<valor_do_campo>`
   exemplo: ```/api/pessoa/buscar/nome/Cristiano```. Obs: Para filtrar por data de nascimento, 
-  o formato esperado pela apié:`yyyy-MM-dd``
+  o formato esperado pela api é:`yyyy-MM-dd``
 - Efetuar busca paginada:  `GET:/api/pessoa/buscar/<campo>/<valor_do_campo>/<pagina>/<itens_por_pagina>`
   exemplo: ```/api/pessoa/buscar/sexo/f/1/50```
 - Buscar quantidade de páginas: ``GET:/api/pessoa/paginas/<itens_por_pagina>`` exemplo: ```/api/pessoa/paginas/5```
