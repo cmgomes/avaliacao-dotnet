@@ -6,6 +6,8 @@ namespace Neppo.Repositories.Interfaces
 {
     public interface IPessoaRepository : IRepository<Pessoa>
     {
-        List<Pessoa> Buscar(string campo, string valor, int pagina = 0, int itensPorPagina = 5);
+        List<Pessoa> Buscar(string campo, string valor, int pagina = 1, int itensPorPagina = 5);
+
+        int GetTotalPaginas(int itensPorPagina);
     }
 }

@@ -1,0 +1,71 @@
+<div class="container">
+  <hr />
+  <a class="btn btn-link pull-right" routerLink="/pessoas"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> voltar</a>
+  <h3>Cadastro/Edição de Pessoas</h3>
+  <hr />
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/home">Página incial</a></li>
+    <li class="breadcrumb-item"><a routerLink="/pessoas">Gestão de pessoas</a></li>
+    <li class="breadcrumb-item active">Cadastro/Edição de Pessoas</li>
+  </ol>
+
+  <form class="form">
+      <legend>{{acao}} de Pessoa</legend>
+      <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" name="nome" id="nome" class="form-control" placeholder="" aria-describedby="nomeId"
+                 [ngModel]="dadosPessoa.nome" (ngModelChange)="dadosPessoa.nome = $event" >
+          <small id="nomeId" class="text-muted">Conceição da Silva</small>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="endereco">Endereço</label>
+          <input type="text" name="endereco" id="endereco" class="form-control" placeholder=""
+                 aria-describedby="enderecoId" [ngModel]="dadosPessoa.endereco"
+                 (ngModelChange)="dadosPessoa.endereco = $event">
+          <small id="enderecoId" class="text-muted">Rua Jabuti, 145. Centro - Uberlândia/MG</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="dataNascimento">Data de Nascimento</label>
+          <input type="date" name="dataNascimento" id="dataNascimento" class="form-control" placeholder=""
+                 aria-describedby="dataNascimentoId" [ngModel]="dadosPessoa.dataNascimento | date: 'yyyy-MM-dd'"
+                 (ngModelChange)="dadosPessoa.dataNascimento = $event">
+          <small id="dataNascimentoId" class="text-muted">30/04/1983</small>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="documento">Documento</label>
+          <input type="text" name="documento" id="documento" class="form-control" placeholder=""
+                 aria-describedby="documentoId" [ngModel]="dadosPessoa.documento"
+                 (ngModelChange)="dadosPessoa.documento = $event">
+          <small id="documentoId" class="text-muted">MG 12.321.456 SSP/MG</small>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="form-group">
+          <label for="sexo">Sexo</label>
+          <select name="sexo" id="sexo" class="form-control" aria-describedby="sexoId" [ngModel]="dadosPessoa.sexo"
+                  (ngModelChange)="dadosPessoa.sexo = $event">
+            <option value="m">Masculino</option>
+            <option value="f">Feminino</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-right">
+      <button class="btn btn-success" (click)="salvar()"><i class="fa fa-save"></i> Salvar</button>
+    </div>
+  </form>
+</div>

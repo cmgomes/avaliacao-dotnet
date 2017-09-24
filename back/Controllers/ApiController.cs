@@ -22,7 +22,17 @@ namespace Neppo.Controllers
         [HttpGet]
         public IEnumerable<Pessoa> Get()
         {
-            return _repositorio.GetAll().ToList();
+            return _repositorio.GetAll(1, 1000).ToList();
+        }
+
+        [HttpGet("{pagina}/{itensPorPagina}")]
+        public IEnumerable<Pessoa> GetPaginado(int pagina, int itensPorPagina)
+        {
+            if (pagina < 1) {
+                pagina = 1;
+            }
+
+            return _repositorio.GetAll(pagina, itensPorPagina).ToList();
         }
 
         // GET api/pessoa/<id>
@@ -32,22 +42,59 @@ namespace Neppo.Controllers
             return _repositorio.Get(id);
         }
 
-        // GET api/pessoa/<campo>/<valor>
-        [HttpGet("{campo}/{valor}")]
-        public List<Pessoa> Get(string campo, string valor)
+
+        // GET api/pessoa/buscar/<campo>/<valor>
+        [HttpGet("buscar/{campo}/{valor}")]
+        public List<Pessoa> Buscar(string campo, string valor)
         {
             return _repositorio.Buscar(campo, valor).ToList();
         }
 
-        // GET api/pessoa/<campo>/<valor>/<pagina>/<itens por página>
-        [HttpGet("{campo}/{valor}/{pagina}/{itensPorPagina}")]
-        public List<Pessoa> Get(string campo, string valor, int pagina, int itensPorPagina)
+        // GET api/pessoa/buscar/<campo>/<valor>/<pagina>/<itens por página>
+        [HttpGet("buscar/{campo}/{valor}/{pagina}/{itensPorPagina}")]
+        public List<Pessoa> BuscarPaginado(string campo, string valor, int pagina, int itensPorPagina)
         {
-            if (itensPorPagina > 1000){
+            if (pagina < 1) {
+                pagina = 1;
+            }
+
+            if (itensPorPagina > 1000 || itensPorPagina < 0){
                 itensPorPagina = 1000;
             }
 
             return _repositorio.Buscar(campo, valor, pagina, itensPorPagina).ToList();
+        }
+
+        [HttpGet("buscar/paginas/{campo}/{valor}/{itensPorPagina}")]
+        public int PaginasBusca(string campo, string valor, int itensPorPagina) {
+            if (itensPorPagina > 1000 || itensPorPagina < 0) {
+                itensPorPagina = 1000;
+            }
+
+            try {
+                double paginas = _repositorio.Buscar(campo, valor).Count() / Convert.ToDouble(itensPorPagina);
+                return Convert.ToInt32(Math.Ceiling(paginas));
+            } catch (Exception e) {
+                Console.WriteLine("Erro no método em ApiController::86: " + e.Message);
+            }
+
+            return 1;
+        }
+
+        // GET api/pessoa/paginas
+        [HttpGet("paginas/{itensPorPagina}")]
+        public int Paginas(int itensPorPagina) {
+            if (itensPorPagina > 1000 || itensPorPagina < 0) {
+                itensPorPagina = 1000;
+            }
+
+            try {
+                return _repositorio.GetTotalPaginas(itensPorPagina);
+            } catch (Exception e) {
+                Console.WriteLine("Erro no método em ApiController::86: " + e.Message);
+            }
+
+            return 1;
         }
 
         // POST api/pessoa
@@ -78,8 +125,10 @@ namespace Neppo.Controllers
                 _repositorio.Add(pessoa);
                 return pessoa;
             } catch( Exception e) {
-                return StatusCode(500, e.Message);
+                Console.WriteLine("Erro em ApiController::107-126: " + e.Message);
             }
+
+            return StatusCode(500, "Falha no processamento da informação");
         }
 
         // PUT api/pessoa/<id>
@@ -94,7 +143,7 @@ namespace Neppo.Controllers
 
             var pessoa = _repositorio.Get(id);
             if (!(pessoa is Pessoa)) {
-                return StatusCode(422, "Nenhum registro encontrado com o código informado.");
+                return StatusCode(500, "Nenhum registro encontrado com o código informado.");
             }
 
             foreach (var chave in dados.Keys) {
@@ -122,8 +171,13 @@ namespace Neppo.Controllers
                 return StatusCode(422, result.Errors.Select(r => r.ErrorMessage));
             }
 
-            _repositorio.Update(pessoa);
-            return pessoa;
+            try {
+                _repositorio.Update(pessoa);
+                return StatusCode(200);
+            } catch(Exception e) {
+                Console.WriteLine("Erro na atualização de pessoa: " + e.Message);
+                return StatusCode(500, "Falha no processamento da informação");
+            }
         }
 
         // DELETE api/pessoa/<id>
@@ -132,7 +186,7 @@ namespace Neppo.Controllers
         {
             var pessoa = _repositorio.Get(id);
             if (!(pessoa is Pessoa)) {
-                return StatusCode(422, "Nenhum registro encontrado com o código informado.");
+                return StatusCode(500, "Nenhum registro encontrado com o código informado.");
             }
 
             _repositorio.Delete(pessoa);

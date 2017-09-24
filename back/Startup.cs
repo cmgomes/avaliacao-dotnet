@@ -28,6 +28,17 @@ namespace Neppo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder => builder.WithMethods("GET")
+                    .AllowAnyHeader()
+                    .WithMethods("POST")
+                    .WithMethods("PUT")
+                    .WithMethods("DELETE")
+                    .WithMethods("OPTIONS")
+                    .AllowAnyOrigin()
+                    .AllowCredentials()
+            ));
+
             services.AddMvc()
                 .AddFluentValidation( f => f.RegisterValidatorsFromAssemblyContaining<Startup>());
 
@@ -43,11 +54,12 @@ namespace Neppo
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CorsPolicy");
+
             IInitializeDBService dataService = serviceProvider.GetService<IInitializeDBService>();
             dataService.InicializeDB();
 
             app.UseRequestLocalization(getLocalizationConfig());
-
             app.UseMvc();
         }
 

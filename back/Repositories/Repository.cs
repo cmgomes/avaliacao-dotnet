@@ -2,6 +2,7 @@ using Neppo.Contexts;
 using Neppo.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
 
 namespace Neppo.Repositories
 {
@@ -39,9 +40,9 @@ namespace Neppo.Repositories
             return _entidades.Find(id);
         }
 
-        public IQueryable<T> GetAll()
+        virtual public IQueryable<T> GetAll(int pagina = 1, int itensPorPagina = 1000)
         {
-            return _entidades;
+            return _entidades.Skip((pagina - 1) * itensPorPagina).Take(itensPorPagina);
         }
 
         private void Save() {

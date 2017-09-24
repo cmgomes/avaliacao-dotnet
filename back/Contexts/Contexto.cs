@@ -9,5 +9,12 @@ namespace Neppo.Contexts
 
         public Context(DbContextOptions<Context> context) : base(context)
         {}
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Pessoa>()
+                    .HasIndex(u => u.documento)
+                    .IsUnique();
+        }
     }
 }

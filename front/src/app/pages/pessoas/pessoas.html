@@ -9,12 +9,46 @@
 
     <div class="btn-toolbar" role="toolbar" aria-label="">
         <div class="btn-group" role="group" aria-label="">
-            <button type="button" class="btn btn-primary">Cadastrar Pessoa</button>
-            <button type="button" class="btn btn-secondary">Exibir Filtros</button>
-            <button type="button" class="btn btn-info">Atualizar Lista</button>
-            <button type="button" class="btn btn-danger">Remover Todos</button>
+            <button type="button" class="btn btn-primary" routerLink="/pessoas/formulario">Cadastrar Pessoa</button>
+            <button type="button" class="btn btn-info" (click)="carregarListaPessoas()">Atualizar Lista</button>
         </div>
     </div>
+
+    <div>
+        <hr />
+        <form class="form">
+            <legend>Busca</legend>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="campoFiltro">Selecione um filtro</label>
+                        <select class="form-control" name="campoFiltro" id="campoFiltro" [ngModel]="filtros.campo"
+                                (ngModelChange)="filtros.campo = $event">
+                            <option value="nome">Nome</option>
+                            <option value="endereco">Endereço</option>
+                            <option value="documento">Documento</option>
+                            <option value="sexo">Sexo</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="valorFiltro">Informe um valor</label>
+                        <input type="text" name="valorFiltro" id="valorFiltro" class="form-control" placeholder=""
+                               aria-describedby="enderecoId" [ngModel]="filtros.valor"
+                               (ngModelChange)="filtros.valor = $event">
+                    </div>
+                </div>
+
+                <div class="col-md-2 text-right">
+                    <button class="btn btn-primary" (click)="filtrar()" title="Filtrar"><i class="fa fa-filter"></i></button>
+                    <button class="btn btn-primary" (click)="limparFiltros(true)" title="Limpar Filtro"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 
     <hr />
 
@@ -31,59 +65,62 @@
                     <th>Ação</th>
                 </tr>
             </thead>
+
             <tbody>
-                <tr>
-                    <td scope="row">.1</td>
-                    <td>Cristiano Moreira Gomes</td>
-                    <td>Rua das Tulipas, 145 - Shopping Park</td>
-                    <td>30/04/1983</td>
-                    <td>RG 17.999.369 ssp/mg</td>
-                    <td>Masculino</td>
+                <tr *ngFor="let pessoa of pessoas">
+                    <td scope="row">.{{pessoa.id}}</td>
+                    <td>{{pessoa.nome}}</td>
+                    <td>{{pessoa.endereco}}</td>
+                    <td>{{pessoa.dataNascimento}}</td>
+                    <td>{{pessoa.documento}}</td>
+                    <td>{{pessoa.sexo == "m" ? 'Masculino' : 'Feminino'}}</td>
                     <td>
-                        <a class="btn btn-warning">editar</a>
-                        <a class="btn btn-danger">remover</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td scope="row">.1</td>
-                    <td>Cristiano Moreira Gomes</td>
-                    <td>Rua das Tulipas, 145 - Shopping Park</td>
-                    <td>30/04/1983</td>
-                    <td>RG 17.999.369 ssp/mg</td>
-                    <td>Masculino</td>
-                    <td>
-                        <a class="btn btn-warning">editar</a>
-                        <a class="btn btn-danger">remover</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td scope="row">.1</td>
-                    <td>Cristiano Moreira Gomes</td>
-                    <td>Rua das Tulipas, 145 - Shopping Park</td>
-                    <td>30/04/1983</td>
-                    <td>RG 17.999.369 ssp/mg</td>
-                    <td>Masculino</td>
-                    <td>
-                        <a class="btn btn-warning">editar</a>
-                        <a class="btn btn-danger">remover</a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td scope="row">.1</td>
-                    <td>Cristiano Moreira Gomes</td>
-                    <td>Rua das Tulipas, 145 - Shopping Park</td>
-                    <td>30/04/1983</td>
-                    <td>RG 17.999.369 ssp/mg</td>
-                    <td>Masculino</td>
-                    <td>
-                        <a class="btn btn-warning">editar</a>
-                        <a class="btn btn-danger">remover</a>
+                        <a class="btn btn-warning" routerLink="/pessoas/formulario/{{pessoa.id}}" title="Editar a pessoa selecionada"><i class="fa fa-edit"></i></a>
+                        <a class="btn btn-danger" title="Remover a pessoa selecionada"
+                           mwlConfirmationPopover [title]="confirmacao.titulo" [message]="confirmacao.mensagem"
+                           (confirm)="remover(pessoa.id)">
+                            <i class="fa fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li class="page-item" [ngClass]="{'disabled': i==1}">
+                                    <a class="page-link" (click)="paginar(pagina - 1)" aria-label="Previous" href="javascript:void(0)">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+
+                                <li *ngFor="let i of paginas" [ngClass]="{'active': i==pagina}" class="page-item" [ngClass]="{'disabled': i==pagina}"><a class="page-link" href="javascript:void(0)" (click)="paginar(i)" >{{i}}</a></li>
+                                <li class="page-item" [ngClass]="{'disabled': i==paginas}">
+                                    <a class="page-link" (click)="paginar(pagina + 1)" href="javascript:void(0)" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label for="valorFiltro">Itens por página</label>
+                            <select type="text" name="itensPorPagina" id="itensPorPagina" class="form-control"
+                                    [ngModel]="itensPorPagina" (ngModelChange)="setItensPorPagina($event)">
+                                <option value="2">2</option>
+                                <option value="5">5</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 
@@ -92,12 +129,8 @@
     <div class="btn-toolbar" role="toolbar" aria-label="">
         <div class="btn-group" role="group" aria-label="">
             <button type="button" class="btn btn-primary">Cadastrar Pessoa</button>
-            <button type="button" class="btn btn-secondary">Exibir Filtros</button>
-            <button type="button" class="btn btn-info">Atualizar Lista</button>
-            <button type="button" class="btn btn-danger">Remover Todos</button>
+            <button type="button" class="btn btn-info" (click)="carregarListaPessoas()">Atualizar Lista</button>
         </div>
     </div>
 
 </div>
-
-
