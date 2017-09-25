@@ -9,9 +9,4 @@ import { Component } from '@angular/core';
 export class HomePage {
     constructor() {}
     title = 'Home Page';
-
-    iniciar() {
-        alert("to ligado nessa gambis ai");
-        //this.router.navigate(['pessoas']);
-    }
 }
