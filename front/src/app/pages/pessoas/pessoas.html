@@ -9,7 +9,7 @@
 
     <div class="btn-toolbar" role="toolbar" aria-label="">
         <div class="btn-group" role="group" aria-label="">
-            <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Cadastrar Pessoa</button>
+            <button type="button" class="btn btn-success" routerLink="/pessoas/formulario"><i class="fa fa-plus"></i> Cadastrar Pessoa</button>
             <button type="button" class="btn btn-info" (click)="carregarListaPessoas()"><i class="fa fa-refresh"></i> Atualizar Lista</button>
         </div>
     </div>
@@ -108,14 +108,14 @@
                         </nav>
                     </td>
                     <td>
-                        <div class="form-group">
-                            <label for="valorFiltro">Itens por página</label>
+                        <div class="form-group"  *ngIf="paginas.length >= 2">
+                            <label for="valorFiltro">Itens por página </label>
                             <select type="text" name="itensPorPagina" id="itensPorPagina" class="form-control"
                                     [ngModel]="itensPorPagina" (ngModelChange)="setItensPorPagina($event)">
-                                <option value="2">2</option>
-                                <option value="5">5</option>
-                                <option value="20">20</option>
-                                <option value="50">50</option>
+                                <option value="2" *ngIf="paginas.length >= 2">2</option>
+                                <option value="5" *ngIf="paginas.length >= 5">5</option>
+                                <option value="20" *ngIf="paginas.length >= 20">20</option>
+                                <option value="50" *ngIf="paginas.length >= 50">50</option>
                             </select>
                         </div>
                     </td>
