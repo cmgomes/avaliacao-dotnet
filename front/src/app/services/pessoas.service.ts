@@ -77,7 +77,7 @@ export class PessoasService  {
       }
       return this.http.delete(this._apiUrl + idPessoa).subscribe(data => {
           return true;
-      }, error =>{
+      }, error => {
           console.clear();
           console.log("Erro na remoção de pessoa: ", error);
           return false;

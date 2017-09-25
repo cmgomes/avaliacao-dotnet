@@ -63,11 +63,14 @@ Sugestão de editores de texto (IDE): [VSCODE](https://code.visualstudio.com/), 
 - Desenvolvido utilizando IDE PHPStorm
 
 ## Requisitos
-- Ferramentas necessárias: angular-cli, yarn
+- É necessário realizar a instalação dos pacotes rxjs, angular-cli e opcionalmente yarn
+``npm install --save-dev rxjs``
+``npm install -g @angular/cli``
+``npm install -g yarn``
 
 ## Para executar em desenvolvimento
 - Rodar o comando `yarn install`
-- Rodar o comando `ng serve --open` e navegar até `http://localhost:4200/`
+- Rodar o comando `ng serve --open` ou apenas ``yarn install`` e navegar até `http://localhost:4200/`
 
 
 # Avaliação Cristiano Gomes - Backend - Neppo

@@ -89,10 +89,6 @@ export class PessoasPage implements OnInit{
         this.service.getPessoas(this.pagina, this.itensPorPagina).subscribe(
             (res) => {
                 this.pessoas = res;
-            },
-
-            (error) => {
-                this.errorMessage = <any>error
             }
         );
     }

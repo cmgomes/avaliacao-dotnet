@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoasService} from "../../../services/pessoas.service";
-import {ActivatedRoute} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ export class FormularioPage implements OnInit {
     idPessoa = null;
     dadosPessoa: any;
 
-    constructor(private service: PessoasService, private route: ActivatedRoute) { }
+    constructor(private service: PessoasService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit() {
 
@@ -48,7 +48,7 @@ export class FormularioPage implements OnInit {
 
     salvar() {
         this.service.salvar(this.idPessoa, this.dadosPessoa).subscribe((res) => {
-          console.log(res);
+            this.router.navigateByUrl('/pessoas');
         });
     }
 }

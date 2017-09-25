@@ -15,7 +15,7 @@ import { PessoasPage } from './pages/pessoas/pessoas';
 import { NotFoundPage } from './pages/404/not-found-page';
 import { FormularioPage } from './pages/pessoas/formulario/formulario';
 
-import {PessoasService} from "./services/pessoas.service";
+import {PessoasService} from './services/pessoas.service';
 
 const appRoutes: Routes = [
     {path: 'home', component: HomePage},

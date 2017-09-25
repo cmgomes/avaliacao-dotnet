@@ -71,7 +71,7 @@
                     <td scope="row">.{{pessoa.id}}</td>
                     <td>{{pessoa.nome}}</td>
                     <td>{{pessoa.endereco}}</td>
-                    <td>{{pessoa.dataNascimento}}</td>
+                    <td>{{pessoa.dataNascimento | date: 'dd/MM/yyyy'}}</td>
                     <td>{{pessoa.documento}}</td>
                     <td>{{pessoa.sexo == "m" ? 'Masculino' : 'Feminino'}}</td>
                     <td>

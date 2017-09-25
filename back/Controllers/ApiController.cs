@@ -175,7 +175,7 @@ namespace Neppo.Controllers
 
             try {
                 _repositorio.Update(pessoa);
-                return StatusCode(200);
+                return StatusCode(200, "success");
             } catch(Exception e) {
                 Console.WriteLine("Erro na atualização de pessoa: " + e.Message);
                 return StatusCode(500, "Falha no processamento da informação");
@@ -191,9 +191,21 @@ namespace Neppo.Controllers
                 return StatusCode(500, "Nenhum registro encontrado com o código informado.");
             }
 
-            _repositorio.Delete(pessoa);
+            try {
+                _repositorio.Delete(pessoa);
 
-            return StatusCode(200, "");
+                Dictionary<string, string> retorno = new Dictionary<string, string>()
+                {
+                    {"success", "true"}
+                };
+
+                return StatusCode(200, retorno);
+
+            } catch (Exception e) {
+                Console.WriteLine("Erro na atualização de pessoa: " + e.Message);
+                return StatusCode(500, "Falha no processamento da informação");
+            }
+            
         }
     }
 }
